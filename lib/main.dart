@@ -1,3 +1,4 @@
+import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,8 +11,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // this flag is only set for the pro version of the app
+    const proVersion = false;
+
+    Features.setFeature(
+      context,
+      'CHANGE_IDEA_COLOR',
+      proVersion,
+    );
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Idea Sorter',
       theme: ThemeData(
         // This is the theme of your application.
         //
