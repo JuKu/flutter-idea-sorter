@@ -1,1 +1,6 @@
-{}
+{
+    "app_title": "Idea Management",
+    "@app_title": {
+      "description": "The app title"
+    }
+}

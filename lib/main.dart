@@ -1,5 +1,6 @@
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     // this flag is only set for the pro version of the app
     const proVersion = false;
 
+    // https://github.com/aloisdeniel/feature_flags
     Features.setFeature(
       context,
       'CHANGE_IDEA_COLOR',
@@ -21,7 +23,13 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp(
-      title: 'Idea Sorter',
+      //onGenerateTitle: (BuildContext context) =>
+        //AppLocalizations.of(context).title,
+      //title: '',
+      // run to fix localization: flutter pub run intl_utils:generate
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.app_title,
       theme: ThemeData(
         // This is the theme of your application.
         //
