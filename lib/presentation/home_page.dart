@@ -44,11 +44,43 @@ class _HomePageState extends State<HomePage> {
             19,
             20
           ].map((i) {
-            return Container(
-              height: 100,
-              alignment: const Alignment(0, 0),
-              color: Colors.cyan,
-              child: Text(i.toString()),
+            return Column(
+              children: [
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 150,
+                  // see also: https://codesinsider.com/flutter-card-example-tutorial/
+                  child: Card(
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
+                      child: ListTile(
+                        title: Text("My test title " + i.toString(), style: const TextStyle(color: Colors.blue),),
+                      ),/* Container(
+                      height: 150,
+                      alignment: const Alignment(0, 0),
+                      // color: Colors.cyan,
+                      child: Text(i.toString()),
+                    ), */
+                      /* ListTile(
+                      title: Text("Codesinsider.com", style: TextStyle(color: Colors.white),),
+                    ), */
+                    ),
+                    elevation: 8,
+                    shadowColor: Colors.blue,
+                    /* shape: BeveledRectangleBorder(
+                      //borderRadius: BorderRadius.circular(15)
+                        borderRadius: BorderRadius.circular(5)
+                    ), */
+                    shape:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.red)
+                    ),
+                  ),
+                )
+              ],
             );
           }).toList()
       ),

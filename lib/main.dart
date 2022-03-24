@@ -17,11 +17,11 @@ class MyApp extends StatelessWidget {
     const proVersion = false;
 
     // https://github.com/aloisdeniel/feature_flags
-    Features.setFeature(
+    /* Features.setFeature(
       context,
       'CHANGE_IDEA_COLOR',
       proVersion,
-    );
+    ); */
 
     return MaterialApp(
       //onGenerateTitle: (BuildContext context) =>
