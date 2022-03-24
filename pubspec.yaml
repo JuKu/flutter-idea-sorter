@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.17.0
   feature_flags: ^0.1.4
   intl_utils: ^2.6.1
+  responsive_grid: ^2.0.0
 
 dev_dependencies:
   flutter_test:
