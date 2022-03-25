@@ -1,6 +1,22 @@
 {
-    "app_title": "Idea Management",
-    "@app_title": {
-      "description": "The app title"
-    }
+  "app_title": "Idea Management",
+  "@app_title": {
+    "description": "The app title"
+  },
+  "create_idea_title": "Create new Idea",
+  "@create_idea_title": {
+    "description": "The dialog title for the 'create new idea' dialog"
+  },
+  "create_idea_save_button": "Save Idea",
+  "@create_idea_save_button": {
+    "description": "The button title for the idea save dialog"
+  },
+  "create_idea_dialog_title_text": "Title",
+  "@create_idea_dialog_title_text": {
+    "description": "This text is shown above the TextField for the idea title in 'create idea dialog'"
+  },
+  "create_idea_dialog_description_text": "Description",
+  "@create_idea_dialog_description_text": {
+    "description": "This text is shown above the TextFormField for the idea description in 'create idea dialog'"
+  }
 }

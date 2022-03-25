@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_idea_sorter/generated/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_idea_sorter/presentation/dialog/create_idea_dialog.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class HomePage extends StatefulWidget {
@@ -86,7 +87,13 @@ class _HomePageState extends State<HomePage> {
             );
           }).toList()),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const CreateIdeaDialog();
+              })
+        },
         backgroundColor: Colors.red,
         tooltip: 'Add',
         child: const Icon(
