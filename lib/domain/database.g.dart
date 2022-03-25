@@ -63,6 +63,8 @@ class _$AppDatabase extends AppDatabase {
 
   IdeaDao? _studentDaoInstance;
 
+  AreaDao? _areaDaoInstance;
+
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
@@ -82,7 +84,11 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ideas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `ideas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `area_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `areas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL)');
+        await database.execute(
+            'CREATE INDEX `index_ideas_area_id` ON `ideas` (`area_id`)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -94,6 +100,11 @@ class _$AppDatabase extends AppDatabase {
   IdeaDao get studentDao {
     return _studentDaoInstance ??= _$IdeaDao(database, changeListener);
   }
+
+  @override
+  AreaDao get areaDao {
+    return _areaDaoInstance ??= _$AreaDao(database, changeListener);
+  }
 }
 
 class _$IdeaDao extends IdeaDao {
@@ -104,6 +115,7 @@ class _$IdeaDao extends IdeaDao {
             'ideas',
             (Idea item) => <String, Object?>{
                   'id': item.id,
+                  'area_id': item.areaId,
                   'title': item.title,
                   'description': item.description
                 },
@@ -120,15 +132,21 @@ class _$IdeaDao extends IdeaDao {
   @override
   Future<List<Idea>> findAllIdeas() async {
     return _queryAdapter.queryList('SELECT * FROM ideas',
-        mapper: (Map<String, Object?> row) => Idea(row['id'] as int,
-            row['title'] as String, row['description'] as String));
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int));
   }
 
   @override
   Stream<Idea?> findIdeaById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM ideas WHERE id = ?1',
-        mapper: (Map<String, Object?> row) => Idea(row['id'] as int,
-            row['title'] as String, row['description'] as String),
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int),
         arguments: [id],
         queryableName: 'ideas',
         isView: false);
@@ -142,6 +160,63 @@ class _$IdeaDao extends IdeaDao {
 
   @override
   Future<void> insertIdea(Idea idea) async {
+    await _ideaInsertionAdapter.insert(idea, OnConflictStrategy.abort);
+  }
+}
+
+class _$AreaDao extends AreaDao {
+  _$AreaDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database, changeListener),
+        _ideaInsertionAdapter = InsertionAdapter(
+            database,
+            'ideas',
+            (Idea item) => <String, Object?>{
+                  'id': item.id,
+                  'area_id': item.areaId,
+                  'title': item.title,
+                  'description': item.description
+                },
+            changeListener);
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<Idea> _ideaInsertionAdapter;
+
+  @override
+  Future<List<Idea>> findAllAreas() async {
+    return _queryAdapter.queryList('SELECT * FROM areas',
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int));
+  }
+
+  @override
+  Stream<Idea?> findAreaById(int id) {
+    return _queryAdapter.queryStream('SELECT * FROM areas WHERE id = ?1',
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int),
+        arguments: [id],
+        queryableName: 'ideas',
+        isView: false);
+  }
+
+  @override
+  Future<void> delete(int id) async {
+    await _queryAdapter
+        .queryNoReturn('DELETE FROM areas WHERE id = ?1', arguments: [id]);
+  }
+
+  @override
+  Future<void> insertArea(Idea idea) async {
     await _ideaInsertionAdapter.insert(idea, OnConflictStrategy.abort);
   }
 }
