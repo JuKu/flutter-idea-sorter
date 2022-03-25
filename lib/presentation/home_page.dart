@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_idea_sorter/generated/l10n.dart';
+// import 'package:flutter_idea_sorter/generated/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
@@ -57,8 +57,11 @@ class _HomePageState extends State<HomePage> {
                         debugPrint('Card tapped.');
                       },
                       child: ListTile(
-                        title: Text("My test title " + i.toString(), style: const TextStyle(color: Colors.blue),),
-                      ),/* Container(
+                        title: Text(
+                          "My test title " + i.toString(),
+                          style: const TextStyle(color: Colors.blue),
+                        ),
+                      ), /* Container(
                       height: 150,
                       alignment: const Alignment(0, 0),
                       // color: Colors.cyan,
@@ -74,16 +77,14 @@ class _HomePageState extends State<HomePage> {
                       //borderRadius: BorderRadius.circular(15)
                         borderRadius: BorderRadius.circular(5)
                     ), */
-                    shape:  OutlineInputBorder(
+                    shape: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.red)
-                    ),
+                        borderSide: const BorderSide(color: Colors.red)),
                   ),
                 )
               ],
             );
-          }).toList()
-      ),
+          }).toList()),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {},
         backgroundColor: Colors.red,
