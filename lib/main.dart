@@ -2,8 +2,15 @@ import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_idea_sorter/presentation/home_page.dart';
+import 'injection.dart' as di;
 
-void main() {
+void main() async {
+  // create flutter widgets not until di was initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // initialize dependency injection
+  await di.init();
+
   runApp(const MyApp());
 }
 
@@ -25,7 +32,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       //onGenerateTitle: (BuildContext context) =>
-        //AppLocalizations.of(context).title,
+      //AppLocalizations.of(context).title,
       //title: '',
       // run to fix localization: flutter pub run intl_utils:generate
       localizationsDelegates: AppLocalizations.localizationsDelegates,
