@@ -7,3 +7,7 @@ A simple idea sorter and manager app for android and iOS
 flutter pub get
 flutter pub run flutter_launcher_icons:main
 ```
+
+# App Signing
+
+See also: https://docs.flutter.dev/deployment/android
