@@ -1,0 +1,7 @@
+This icon is originally from https://findicons.com/icon/169086/ktip and is licensed under GNU/GPL.
+See also the link for additional license information.
+
+    Icon Pack: Crystal icons multipurpose package for web
+    Designer: YellowIcon
+    License: GNU/GPL
+    Size (px): 128 x 128 (8 sizes available)
