@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class CreateIdeaDialog extends StatelessWidget {
+class CreateIdeaDialog extends StatefulWidget {
   const CreateIdeaDialog({Key? key}) : super(key: key);
+
+  @override
+  State<CreateIdeaDialog> createState() => _CreateIdeaDialogState();
+}
+
+class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +51,10 @@ class CreateIdeaDialog extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextField(
+                        TextFormField(
                           style: const TextStyle(
                               color: Colors.blue, decorationColor: Colors.blue),
+                          controller: _titleController,
                           decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
                                 .create_idea_dialog_title_text,
@@ -69,6 +78,7 @@ class CreateIdeaDialog extends StatelessWidget {
                           minLines: 2,
                           maxLines: 5,
                           keyboardType: TextInputType.multiline,
+                          controller: _descriptionController,
                           decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
                                 .create_idea_dialog_description_text,
