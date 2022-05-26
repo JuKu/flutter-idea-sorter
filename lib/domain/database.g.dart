@@ -159,6 +159,11 @@ class _$IdeaDao extends IdeaDao {
   }
 
   @override
+  Future<int?> countAll() async {
+    await _queryAdapter.queryNoReturn('SELECT COUNT(*) FROM ideas');
+  }
+
+  @override
   Future<void> insertIdea(Idea idea) async {
     await _ideaInsertionAdapter.insert(idea, OnConflictStrategy.abort);
   }

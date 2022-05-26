@@ -14,4 +14,7 @@ abstract class IdeaDao {
 
   @Query('DELETE FROM ideas WHERE id = :id')
   Future<void> delete(int id);
+
+  @Query('SELECT COUNT(*) FROM ideas')
+  Future<int?> countAll();
 }
