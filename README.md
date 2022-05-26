@@ -11,3 +11,11 @@ flutter pub run flutter_launcher_icons:main
 # App Signing
 
 See also: https://docs.flutter.dev/deployment/android
+
+# Mocks generieren (vor Tests)
+
+Generiert `@GenerateMocks`
+
+```shell
+flutter packages run build_runner build --delete_conflicting_outputs
+```
