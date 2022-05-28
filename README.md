@@ -24,5 +24,9 @@ flutter packages run build_runner build --delete-conflicting-outputs
 
 ```shell
 flutter packages pub run build_runner build
+
+# If you prefer keeping your files up to date,
+# enter the following command to watch for file changes and
+# run the code generation tool every time a file change is detected:
 flutter packages pub run build_runner watch
 ```

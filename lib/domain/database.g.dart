@@ -61,7 +61,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  IdeaDao? _studentDaoInstance;
+  IdeaDao? _ideaDaoInstance;
 
   AreaDao? _areaDaoInstance;
 
@@ -97,8 +97,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  IdeaDao get studentDao {
-    return _studentDaoInstance ??= _$IdeaDao(database, changeListener);
+  IdeaDao get ideaDao {
+    return _ideaDaoInstance ??= _$IdeaDao(database, changeListener);
   }
 
   @override

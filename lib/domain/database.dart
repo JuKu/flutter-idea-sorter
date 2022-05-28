@@ -12,6 +12,6 @@ part 'database.g.dart'; // the generated code will be there
 
 @Database(version: 1, entities: [Idea, Area])
 abstract class AppDatabase extends FloorDatabase {
-  IdeaDao get studentDao;
+  IdeaDao get ideaDao;
   AreaDao get areaDao;
 }
