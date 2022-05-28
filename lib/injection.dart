@@ -10,7 +10,10 @@ final sl = GetIt.I; // sl = service locator
 
 Future<void> init() async {
   /// BLOCS
-  sl.registerSingleton(() => DataStateBloc());
+  sl.registerSingletonWithDependencies<DataStateBloc>(() {
+    IdeaUseCases ideaUseCases = GetIt.instance.get<IdeaUseCases>();
+    return DataStateBloc(ideaUseCases: ideaUseCases);
+  }, dependsOn: [IdeaUseCases]);
 
   // factory means, that every call sl creates a new instance of the dependency
   //sl.registerFactory(() => null)
