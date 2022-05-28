@@ -9,3 +9,12 @@ class DataStateInitial extends DataStateState {}
 
 /// This state represents the waiting while loading the data from backend
 class LoadingDataState extends DataStateState {}
+
+/// This state represents the case, if no idea exists in database for this area.
+class NoIdeasDataState extends DataStateState {}
+
+/// This state is current, if no area exists in database
+class NoAreasDataState extends DataStateState {}
+
+/// This state is current, if one or multiple ideas was loaded from database
+class IdeaOverviewLoadedDataState extends DataStateState {}
