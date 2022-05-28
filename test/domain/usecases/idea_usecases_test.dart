@@ -49,7 +49,7 @@ void main() {
       late String description;
 
       // arrange
-      when(mockIdeaDao.insertIdea).thenAnswer((realInvocation) => null);
+      //when(mockIdeaDao.insertIdea).thenAnswer((realInvocation) => null);
 
       // act
 
