@@ -42,4 +42,18 @@ void main() {
 
     //...
   });
+
+  group("addIdea", () {
+    test("should create an idea entry", () {
+      late String title;
+      late String description;
+
+      // arrange
+      when(mockIdeaDao.insertIdea).thenAnswer((realInvocation) => null);
+
+      // act
+
+      // verify
+    });
+  });
 }

@@ -49,6 +49,8 @@ dependencies:
   mockito: ^5.2.0
   equatable: ^2.0.3
   dartz: ^0.10.1
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:
