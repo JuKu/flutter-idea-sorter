@@ -1,0 +1,1 @@
+This fixture directory conains fake data (e.q. json files which simulates a REST backend).
