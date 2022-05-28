@@ -44,16 +44,27 @@ void main() {
   });
 
   group("addIdea", () {
-    test("should create an idea entry", () {
+    test("should create an idea entry", () async {
       late String title;
       late String description;
 
+      // this variable simulates the idea database
+      late int ideaCount = 0;
+
       // arrange
-      //when(mockIdeaDao.insertIdea).thenAnswer((realInvocation) => null);
+      when(mockIdeaDao.insertIdea(any)).thenAnswer((realInvocation) async {
+        ideaCount++;
+      });
+      when(mockIdeaDao.countAll()).thenAnswer((_) async => ideaCount);
 
       // act
+      final count1 = await ideaUseCases.countIdeas();
+      ideaUseCases.addIdea(1, "test1", "test2");
+      final count2 = await ideaUseCases.countIdeas();
 
       // verify
+      expect(count1, 0);
+      expect(count2, 1);
     });
   });
 }
