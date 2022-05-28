@@ -8,6 +8,14 @@ class IdeaUseCases {
   IdeaUseCases({required this.ideaDao});
 
   Future<bool> addIdea(int areaId, String title, String description) async {
+    // TODO: replace direct database access with repository calls
+
+    // first, check if idea title already exists
+    if ((await (ideaDao.findIdeaByTitle(title).length)) > 0) {
+      /// idea title already exists
+      return false;
+    }
+
     late Idea idea = Idea(-1, title, description, areaId);
     ideaDao.insertIdea(idea);
 

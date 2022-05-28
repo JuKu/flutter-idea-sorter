@@ -52,6 +52,8 @@ void main() {
       late int ideaCount = 0;
 
       // arrange
+      when(mockIdeaDao.findIdeaByTitle(any))
+          .thenAnswer((realInvocation) => const Stream.empty());
       when(mockIdeaDao.insertIdea(any)).thenAnswer((realInvocation) async {
         ideaCount++;
       });
@@ -59,10 +61,11 @@ void main() {
 
       // act
       final count1 = await ideaUseCases.countIdeas();
-      ideaUseCases.addIdea(1, "test1", "test2");
+      final result = await ideaUseCases.addIdea(1, "test1", "test2");
       final count2 = await ideaUseCases.countIdeas();
 
       // verify
+      expect(result, true);
       expect(count1, 0);
       expect(count2, 1);
     });

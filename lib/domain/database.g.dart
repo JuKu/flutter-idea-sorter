@@ -153,6 +153,19 @@ class _$IdeaDao extends IdeaDao {
   }
 
   @override
+  Stream<Idea?> findIdeaByTitle(String title) {
+    return _queryAdapter.queryStream('SELECT * FROM ideas WHERE title = ?1',
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int),
+        arguments: [title],
+        queryableName: 'ideas',
+        isView: false);
+  }
+
+  @override
   Future<void> delete(int id) async {
     await _queryAdapter
         .queryNoReturn('DELETE FROM ideas WHERE id = ?1', arguments: [id]);

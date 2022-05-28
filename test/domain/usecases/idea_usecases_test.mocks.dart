@@ -36,6 +36,10 @@ class MockIdeaDao extends _i1.Mock implements _i2.IdeaDao {
       (super.noSuchMethod(Invocation.method(#findIdeaById, [id]),
           returnValue: Stream<_i4.Idea?>.empty()) as _i3.Stream<_i4.Idea?>);
   @override
+  _i3.Stream<_i4.Idea?> findIdeaByTitle(String? title) =>
+      (super.noSuchMethod(Invocation.method(#findIdeaByTitle, [title]),
+          returnValue: Stream<_i4.Idea?>.empty()) as _i3.Stream<_i4.Idea?>);
+  @override
   _i3.Future<void> insertIdea(_i4.Idea? idea) =>
       (super.noSuchMethod(Invocation.method(#insertIdea, [idea]),
           returnValue: Future<void>.value(),

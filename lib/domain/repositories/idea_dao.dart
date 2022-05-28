@@ -9,6 +9,9 @@ abstract class IdeaDao {
   @Query('SELECT * FROM ideas WHERE id = :id')
   Stream<Idea?> findIdeaById(int id);
 
+  @Query('SELECT * FROM ideas WHERE title = :title')
+  Stream<Idea?> findIdeaByTitle(String title);
+
   @insert
   Future<void> insertIdea(Idea idea);
 
