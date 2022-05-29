@@ -19,7 +19,7 @@
   "@create_idea_dialog_description_text": {
     "description": "This text is shown above the TextFormField for the idea description in 'create idea dialog'"
   },
-  "choose_area_title": "Choose project",
+  "choose_area_title": "Choose area",
   "@choose_area_title": {
     "description": "This text is shown as title for the ChooseAreaDialog'"
   },

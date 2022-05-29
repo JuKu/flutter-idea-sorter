@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
+import 'package:get_it/get_it.dart';
 
 class ChooseAreaDialog extends StatefulWidget {
   const ChooseAreaDialog({Key? key}) : super(key: key);
@@ -9,8 +11,13 @@ class ChooseAreaDialog extends StatefulWidget {
 }
 
 class _ChooseAreaDialogState extends State<ChooseAreaDialog> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+  String? dropdownValue;
+  late AreaUseCases _areaUseCases;
+
+  _ChooseAreaDialogState() {
+    _areaUseCases = GetIt.instance.get<AreaUseCases>();
+    dropdownValue = _areaUseCases.getSelectedArea();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +26,7 @@ class _ChooseAreaDialogState extends State<ChooseAreaDialog> {
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Container(
-        height: 400,
+        height: 300,
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -50,6 +57,24 @@ class _ChooseAreaDialogState extends State<ChooseAreaDialog> {
                         const SizedBox(
                           height: 5,
                         ),
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          hint: Text('Select a project'),
+                          icon: const Icon(Icons.arrow_drop_down),
+                          dropdownColor: Colors.lightBlueAccent,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
+                          items: <String>['Red', 'Green', 'Blue']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        )
                       ],
                     ),
                   )),

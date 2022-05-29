@@ -20,4 +20,12 @@ class AreaUseCases {
       areaRepository.insertArea(defaultArea);
     }
   }
+
+  String? getSelectedArea() {
+    return null;
+  }
+
+  void setSelectedArea(String newArea) {
+    //
+  }
 }
