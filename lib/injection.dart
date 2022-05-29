@@ -12,7 +12,7 @@ Future<void> init() async {
   /// BLOCS
   sl.registerSingletonWithDependencies<DataStateBloc>(() {
     IdeaUseCases ideaUseCases = GetIt.instance.get<IdeaUseCases>();
-    return DataStateBloc(ideaUseCases: ideaUseCases);
+    return DataStateBloc(ideaUseCases: sl());
   }, dependsOn: [IdeaUseCases]);
 
   // factory means, that every call sl creates a new instance of the dependency
@@ -20,7 +20,7 @@ Future<void> init() async {
 
   /// Usecases
   // sl.registerLazySingleton(() => null);
-  sl.registerLazySingleton(
+  sl.registerLazySingleton<IdeaUseCases>(
       () => IdeaUseCases(ideaDao: sl.get<AppDatabase>().ideaDao));
 
   /// repos
