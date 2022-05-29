@@ -1,6 +1,8 @@
 # flutter-idea-sorter
 
-A simple idea sorter and manager app for android and iOS
+A simple idea sorter and manager app for android and iOS#
+
+Issues: [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2571898)
 
 # Generate android and iOS icons
 ```shell
