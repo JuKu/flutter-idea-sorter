@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_idea_sorter/generated/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
 import 'package:flutter_idea_sorter/presentation/dialog/create_idea_dialog.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import '../injection.dart' as di;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,11 +14,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final AreaUseCases areaUseCases = di.sl();
+
   @override
   Widget build(BuildContext context) {
     final deviceData = MediaQuery.of(context);
     final screenSize = MediaQuery.of(context).size;
     final deviceOrientation = MediaQuery.of(context).orientation;
+
+    /// check, if minimum one area exists or create the default area
+    areaUseCases.createDefaultAreaIfAbsent();
 
     return Scaffold(
       appBar: AppBar(

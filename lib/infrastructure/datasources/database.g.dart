@@ -185,15 +185,11 @@ class _$IdeaDao extends IdeaDao {
 class _$AreaDao extends AreaDao {
   _$AreaDao(this.database, this.changeListener)
       : _queryAdapter = QueryAdapter(database, changeListener),
-        _ideaInsertionAdapter = InsertionAdapter(
+        _areaInsertionAdapter = InsertionAdapter(
             database,
-            'ideas',
-            (Idea item) => <String, Object?>{
-                  'id': item.id,
-                  'area_id': item.areaId,
-                  'title': item.title,
-                  'description': item.description
-                },
+            'areas',
+            (Area item) =>
+                <String, Object?>{'id': item.id, 'title': item.title},
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -202,28 +198,22 @@ class _$AreaDao extends AreaDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<Idea> _ideaInsertionAdapter;
+  final InsertionAdapter<Area> _areaInsertionAdapter;
 
   @override
-  Future<List<Idea>> findAllAreas() async {
+  Future<List<Area>> findAllAreas() async {
     return _queryAdapter.queryList('SELECT * FROM areas',
-        mapper: (Map<String, Object?> row) => Idea(
-            row['id'] as int,
-            row['title'] as String,
-            row['description'] as String,
-            row['area_id'] as int));
+        mapper: (Map<String, Object?> row) =>
+            Area(row['id'] as int, row['title'] as String));
   }
 
   @override
-  Stream<Idea?> findAreaById(int id) {
+  Stream<Area?> findAreaById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM areas WHERE id = ?1',
-        mapper: (Map<String, Object?> row) => Idea(
-            row['id'] as int,
-            row['title'] as String,
-            row['description'] as String,
-            row['area_id'] as int),
+        mapper: (Map<String, Object?> row) =>
+            Area(row['id'] as int, row['title'] as String),
         arguments: [id],
-        queryableName: 'ideas',
+        queryableName: 'areas',
         isView: false);
   }
 
@@ -234,7 +224,12 @@ class _$AreaDao extends AreaDao {
   }
 
   @override
-  Future<void> insertArea(Idea idea) async {
-    await _ideaInsertionAdapter.insert(idea, OnConflictStrategy.abort);
+  Future<int?> countAll() async {
+    await _queryAdapter.queryNoReturn('SELECT COUNT(*) FROM areas');
+  }
+
+  @override
+  Future<void> insertArea(Area area) async {
+    await _areaInsertionAdapter.insert(area, OnConflictStrategy.abort);
   }
 }

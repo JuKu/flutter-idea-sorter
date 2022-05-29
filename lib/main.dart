@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:feature_flags/feature_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_idea_sorter/infrastructure/datasources/database.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
 import 'package:flutter_idea_sorter/presentation/home_page.dart';
+import 'package:get_it/get_it.dart';
 import 'injection.dart' as di;
 
 void main() async {
@@ -10,6 +15,10 @@ void main() async {
 
   // initialize dependency injection
   await di.init();
+
+  /// await di.sl.allReady();
+  di.sl.isReady<AppDatabase>(timeout: const Duration(seconds: 10));
+  di.sl.isReady<AreaDao>(timeout: const Duration(seconds: 10));
 
   runApp(const MyApp());
 }
@@ -50,7 +59,23 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: FutureBuilder(
+          future: GetIt.instance.allReady(timeout: const Duration(seconds: 10)),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return const HomePage();
+            } else
+              return Center(
+                  child: Stack(
+                children: [
+                  CircularProgressIndicator(),
+                  Text(
+                    "Database is loading...",
+                    style: TextStyle(color: Colors.blue, fontSize: 12),
+                  )
+                ],
+              ));
+          }),
     );
   }
 }

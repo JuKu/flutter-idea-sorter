@@ -1,4 +1,7 @@
+import 'package:flutter_idea_sorter/application/area_selection/area_selection_bloc.dart';
 import 'package:flutter_idea_sorter/application/datastate/data_state_bloc.dart';
+import 'package:flutter_idea_sorter/domain/repositories/area_repository.dart';
+import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
@@ -9,38 +12,43 @@ import 'infrastructure/datasources/database.dart';
 final sl = GetIt.I; // sl = service locator
 
 Future<void> init() async {
+  // Register our database first.
+  sl.registerLazySingletonAsync<AppDatabase>(() async =>
+      $FloorAppDatabase.databaseBuilder('ideamanagement.db').build());
+
+  sl.registerSingletonWithDependencies<AreaDao>(() {
+    return sl.get<AppDatabase>().areaDao;
+  }, dependsOn: [AppDatabase]);
+
   /// BLOCS
-  /*sl.registerSingletonWithDependencies<DataStateBloc>(() {
-    //IdeaUseCases ideaUseCases = GetIt.instance.get<IdeaUseCases>();
-    return DataStateBloc(ideaUseCases: sl());
-  }, dependsOn: [IdeaUseCases]);*/
   sl.registerLazySingleton(() => DataStateBloc(ideaUseCases: sl()));
+  sl.registerLazySingleton(() => AreaSelectionBloc(ideaUseCases: sl()));
 
   // factory means, that every call sl creates a new instance of the dependency
   //sl.registerFactory(() => null)
 
+  sl.registerSingletonWithDependencies<AreaRepository>(() => AreaRepository(),
+      dependsOn: [AppDatabase, AreaDao]);
+
   /// Usecases
   // sl.registerLazySingleton(() => null);
   sl.registerLazySingleton<IdeaUseCases>(() => IdeaUseCases(ideaDao: sl()));
+  sl.registerSingletonWithDependencies<AreaUseCases>(
+      () => AreaUseCases(areaRepository: sl<AreaRepository>()),
+      dependsOn: [AreaRepository]);
 
   /// repos
 
   /// datasources
-  /*AppDatabase database =
-      await $FloorAppDatabase.databaseBuilder('ideamanagement.db').build();*/
-
   /// see also: https://github.com/fluttercommunity/get_it/issues/99
-  sl.registerLazySingletonAsync<AppDatabase>(() async =>
-      $FloorAppDatabase.databaseBuilder('ideamanagement.db').build());
+  /*sl.registerLazySingletonAsync<AppDatabase>(() async =>
+      $FloorAppDatabase.databaseBuilder('ideamanagement.db').build());*/
   /*sl.registerLazySingleton(() => database.ideaDao);
   sl.registerLazySingleton(() => database.areaDao);*/
 
   /// Register all DAOs.
   sl.registerSingletonWithDependencies<IdeaDao>(() {
-    return GetIt.instance.get<AppDatabase>().ideaDao;
-  }, dependsOn: [AppDatabase]);
-  sl.registerSingletonWithDependencies<AreaDao>(() {
-    return GetIt.instance.get<AppDatabase>().areaDao;
+    return sl.get<AppDatabase>().ideaDao;
   }, dependsOn: [AppDatabase]);
 
   /// extern
