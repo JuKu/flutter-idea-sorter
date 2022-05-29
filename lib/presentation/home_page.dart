@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_idea_sorter/generated/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
+import 'package:flutter_idea_sorter/presentation/dialog/choose_area_dialog.dart';
 import 'package:flutter_idea_sorter/presentation/dialog/create_idea_dialog.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import '../injection.dart' as di;
@@ -34,11 +35,13 @@ class _HomePageState extends State<HomePage> {
         leading: const Icon(Icons.home),
         actions: [
           IconButton(
-              onPressed: () {},
-              //TODO: change the button color to red, if the user was mentioned,
-              //yellow if there are new messages in last 10 minutes (or someone is active),
-              //white, if no new messages are in chat.
-              //TODO: change also the icon, if no new messages are in chat
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const ChooseAreaDialog();
+                    });
+              },
               icon: const Icon(
                 Icons.business_center_sharp,
                 color: Colors.white,

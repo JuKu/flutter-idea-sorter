@@ -3,5 +3,7 @@
     "create_idea_title": "Neue Idee",
     "create_idea_save_button": "Idee speichern",
     "create_idea_dialog_title_text": "Title (Kurze Zusammenfassung)",
-    "create_idea_dialog_description_text": "Beschreibung"
+    "create_idea_dialog_description_text": "Beschreibung",
+    "choose_area_title": "Project auswählen",
+    "select_area_button": "Auswählen"
 }
