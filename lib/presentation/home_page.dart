@@ -14,16 +14,35 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final deviceData = MediaQuery.of(context);
+    final screenSize = MediaQuery.of(context).size;
+    final deviceOrientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(AppLocalizations.of(context)!.app_title),
+        centerTitle: true,
+        leading: const Icon(Icons.home),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              //TODO: change the button color to red, if the user was mentioned,
+              //yellow if there are new messages in last 10 minutes (or someone is active),
+              //white, if no new messages are in chat.
+              //TODO: change also the icon, if no new messages are in chat
+              icon: const Icon(
+                Icons.business_center_sharp,
+                color: Colors.white,
+              )),
+        ],
       ),
       body: ResponsiveGridList(
           desiredItemWidth: 150,
           minSpacing: 10,
           children: [
+            //-1,
             1,
             2,
             3,
@@ -45,6 +64,12 @@ class _HomePageState extends State<HomePage> {
             19,
             20
           ].map((i) {
+            /*if (i == -1) {
+              return Column(
+                children: [SizedBox(width: MediaQuery.of(context).size.width)],
+              );
+            }*/
+
             return Column(
               children: [
                 const SizedBox(height: 10),
