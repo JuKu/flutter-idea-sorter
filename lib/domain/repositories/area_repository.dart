@@ -1,3 +1,4 @@
+import 'package:flutter_idea_sorter/infrastructure/datasources/database.dart';
 import 'package:flutter_idea_sorter/infrastructure/entities/area_entity.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
 import 'package:get_it/get_it.dart';
@@ -6,6 +7,10 @@ class AreaRepository {
   late AreaDao _areaDao;
 
   AreaRepository() {
+    if (!GetIt.instance.isReadySync<AreaDao>()) {
+      throw Exception(
+          "AreaDAO is not ready - this means database was not initialized correctly");
+    }
     _areaDao = GetIt.instance.get<AreaDao>();
   }
 
@@ -25,7 +30,10 @@ class AreaRepository {
     return _areaDao.delete(id);
   }
 
-  Future<int?> countAll() {
-    return _areaDao.countAll();
+  Future<int> countAll() async {
+    final list = await _areaDao.findAllAreas();
+    final count = list.toList().length;
+
+    return count;
   }
 }

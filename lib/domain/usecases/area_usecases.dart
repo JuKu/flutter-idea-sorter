@@ -8,12 +8,14 @@ class AreaUseCases {
 
   /// This method checks, if minimum one area exists
   Future<bool> hasAreas() async {
-    return true; //(await areaRepository.countAll())! > 0;
+    final areas = await areaRepository.countAll();
+    print("areas: $areas");
+    return (await areaRepository.countAll())! > 0;
   }
 
   /// This method creates the default area, if no area exists
   Future<void> createDefaultAreaIfAbsent() async {
-    if ((await areaRepository.countAll())! == 0) {
+    if (!(await hasAreas())) {
       /// no area exists, so create the default area
       final Area defaultArea = Area(1, "default");
       areaRepository.insertArea(defaultArea);
