@@ -1,6 +1,7 @@
 import 'package:flutter_idea_sorter/domain/models/area_model.dart';
 import 'package:flutter_idea_sorter/domain/repositories/area_repository.dart';
 import 'package:flutter_idea_sorter/infrastructure/entities/area_entity.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AreaUseCases {
   final AreaRepository areaRepository;
@@ -23,14 +24,30 @@ class AreaUseCases {
   }
 
   Future<int?> getSelectedAreaID() async {
-    this.createDefaultAreaIfAbsent();
+    await this.createDefaultAreaIfAbsent();
 
-    /// TODO: load from shared preferences
-    return (await areaRepository.findAllAreas()).first.id;
+    // Obtain shared preferences.
+    final prefs = await SharedPreferences.getInstance();
+
+    /// load from shared preferences
+    int selectedAreaID = prefs.getInt("selected_area") ?? -1;
+    print("selected area loaded from shared preferences: $selectedAreaID");
+
+    if (selectedAreaID == -1) {
+      selectedAreaID = (await areaRepository.findAllAreas()).first.id;
+    }
+
+    return selectedAreaID;
   }
 
-  void saveSelectedArea(int areaID) {
-    /// TODO: save to shared preferences
+  void saveSelectedArea(int areaID) async {
+    /// save to shared preferences
+    print("save selected area: $areaID");
+
+    // Obtain shared preferences.
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setInt("selected_area", areaID);
   }
 
   Future<List<AreaModel>> listAllAreas() async {

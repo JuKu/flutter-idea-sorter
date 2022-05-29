@@ -120,6 +120,7 @@ class _ChooseAreaDialogState extends State<ChooseAreaDialog> {
                       ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pop();
+                            _areaUseCases.saveSelectedArea(dropdownValue!);
                           },
                           child: Text(AppLocalizations.of(context)!
                               .select_area_button)),
