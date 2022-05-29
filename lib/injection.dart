@@ -1,10 +1,10 @@
 import 'package:flutter_idea_sorter/application/datastate/data_state_bloc.dart';
-import 'package:flutter_idea_sorter/domain/repositories/area_dao.dart';
-import 'package:flutter_idea_sorter/domain/repositories/idea_dao.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'domain/database.dart';
+import 'infrastructure/datasources/database.dart';
 
 final sl = GetIt.I; // sl = service locator
 

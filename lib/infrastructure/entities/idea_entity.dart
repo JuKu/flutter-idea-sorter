@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:flutter_idea_sorter/domain/entities/area_entity.dart';
+import 'package:flutter_idea_sorter/infrastructure/entities/area_entity.dart';
 
 @Entity(
   tableName: 'ideas',

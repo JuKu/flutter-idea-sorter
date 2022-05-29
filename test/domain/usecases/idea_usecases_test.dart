@@ -1,4 +1,4 @@
-import 'package:flutter_idea_sorter/domain/repositories/idea_dao.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

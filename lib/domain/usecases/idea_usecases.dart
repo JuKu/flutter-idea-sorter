@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_idea_sorter/domain/entities/idea_entity.dart';
-import 'package:flutter_idea_sorter/domain/repositories/idea_dao.dart';
+import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
 
 class IdeaUseCases {
   final IdeaDao ideaDao;

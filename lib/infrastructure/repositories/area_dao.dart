@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:flutter_idea_sorter/domain/entities/idea_entity.dart';
+import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
 
 @dao
 abstract class AreaDao {

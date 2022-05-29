@@ -1,10 +1,10 @@
 // required package imports
 import 'dart:async';
 import 'package:floor/floor.dart';
-import 'package:flutter_idea_sorter/domain/entities/area_entity.dart';
-import 'package:flutter_idea_sorter/domain/entities/idea_entity.dart';
-import 'package:flutter_idea_sorter/domain/repositories/area_dao.dart';
-import 'package:flutter_idea_sorter/domain/repositories/idea_dao.dart';
+import 'package:flutter_idea_sorter/infrastructure/entities/area_entity.dart';
+import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
+import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
 // build database: flutter packages pub run build_runner build
