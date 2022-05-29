@@ -21,8 +21,6 @@ Future<void> init() async {
   }, dependsOn: [AppDatabase]);
 
   /// BLOCS
-  sl.registerLazySingleton(() => DataStateBloc(ideaUseCases: sl()));
-  sl.registerLazySingleton(() => AreaSelectionBloc(ideaUseCases: sl()));
 
   // factory means, that every call sl creates a new instance of the dependency
   //sl.registerFactory(() => null)
@@ -53,4 +51,9 @@ Future<void> init() async {
 
   /// extern
   sl.registerLazySingleton(() => http.Client());
+
+  sl.registerLazySingleton(() => DataStateBloc(ideaUseCases: sl()));
+  sl.registerSingletonWithDependencies(
+      () => AreaSelectionBloc(areaUseCases: sl()),
+      dependsOn: [AreaUseCases]);
 }

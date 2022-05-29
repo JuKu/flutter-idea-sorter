@@ -1,3 +1,4 @@
+import 'package:flutter_idea_sorter/domain/models/area_model.dart';
 import 'package:flutter_idea_sorter/domain/repositories/area_repository.dart';
 import 'package:flutter_idea_sorter/infrastructure/entities/area_entity.dart';
 
@@ -9,7 +10,7 @@ class AreaUseCases {
   /// This method checks, if minimum one area exists
   Future<bool> hasAreas() async {
     final areas = await areaRepository.countAll();
-    return (await areaRepository.countAll())! > 0;
+    return (await areaRepository.countAll()) > 0;
   }
 
   /// This method creates the default area, if no area exists
@@ -21,11 +22,32 @@ class AreaUseCases {
     }
   }
 
-  String? getSelectedArea() {
-    return null;
+  Future<int?> getSelectedAreaID() async {
+    this.createDefaultAreaIfAbsent();
+
+    /// TODO: load from shared preferences
+    return (await areaRepository.findAllAreas()).first.id;
   }
 
-  void setSelectedArea(String newArea) {
-    //
+  void saveSelectedArea(int areaID) {
+    /// TODO: save to shared preferences
+  }
+
+  Future<List<AreaModel>> listAllAreas() async {
+    return (await areaRepository.findAllAreas())
+        .map((area) => AreaModel(areaID: area.id, title: area.title))
+        .toList();
+  }
+
+  Future<AreaModel?> getAreaModelById(int areaID) async {
+    final area = areaRepository.findAreaById(areaID);
+
+    if (area == null) {
+      return null;
+    }
+
+    return area
+        .map((area) => AreaModel(areaID: area!.id, title: area.title))
+        .first;
   }
 }
