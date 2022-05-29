@@ -9,7 +9,6 @@ class AreaUseCases {
   /// This method checks, if minimum one area exists
   Future<bool> hasAreas() async {
     final areas = await areaRepository.countAll();
-    print("areas: $areas");
     return (await areaRepository.countAll())! > 0;
   }
 
