@@ -116,9 +116,7 @@ class _HomePageState extends State<HomePage> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return CreateIdeaDialog(callback: () async {
-                  //print((await fetchData())!.length);
-                });
+                return CreateIdeaDialog();
               }).then(onGoBack)
         },
         backgroundColor: Colors.red,
@@ -140,6 +138,11 @@ class _HomePageState extends State<HomePage> {
   Future<List<IdeaOverviewModel>> fetchData() async {
     final int areaID = (await areaUseCases.getSelectedAreaID())!;
 
-    return ideaUseCases.listIdeaOverviewsByArea(areaID);
+    final List<IdeaOverviewModel> list =
+        await ideaUseCases.listIdeaOverviewsByArea(areaID);
+    getLogger().d(
+        "ideas found: ${list.length} for areaID: $areaID, all ideas: ${await ideaUseCases.countIdeas()}");
+
+    return list;
   }
 }

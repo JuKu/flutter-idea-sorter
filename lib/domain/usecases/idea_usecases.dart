@@ -30,17 +30,17 @@ class IdeaUseCases {
       return false;
     }
 
-    late Idea idea = Idea(-1, title, description, areaId);
+    late Idea idea = Idea(areaId, title, description, areaId);
     ideaDao.insertIdea(idea);
 
     logger.i(
-        "created idea successfully (title: $title, description: $description");
+        "created idea successfully (title: $title, description: $description, areaID: $areaId");
 
     return true;
   }
 
   Future<int?> countIdeas() async {
-    return ideaDao.countAll();
+    return ideaRepository.countAll();
   }
 
   Future<List<IdeaOverviewModel>> listIdeaOverviewsByArea(

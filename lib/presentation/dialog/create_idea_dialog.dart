@@ -3,14 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_idea_sorter/application/area_selection/area_selection_bloc.dart';
 import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
+import 'package:flutter_idea_sorter/logger.util.dart';
 import 'package:get_it/get_it.dart';
 
 class CreateIdeaDialog extends StatefulWidget {
-  final Function callback;
-  const CreateIdeaDialog({Key? key, required this.callback}) : super(key: key);
+  const CreateIdeaDialog({Key? key}) : super(key: key);
 
   @override
-  State<CreateIdeaDialog> createState() => _CreateIdeaDialogState(callback);
+  State<CreateIdeaDialog> createState() => _CreateIdeaDialogState();
 }
 
 class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
@@ -19,9 +19,7 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
   late IdeaUseCases _ideaUseCases;
   late AreaUseCases _areaUseCases;
 
-  final Function callback;
-
-  _CreateIdeaDialogState(this.callback) {
+  _CreateIdeaDialogState() {
     _ideaUseCases = GetIt.instance.get<IdeaUseCases>();
     _areaUseCases = GetIt.instance.get<AreaUseCases>();
   }
@@ -117,9 +115,11 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
                     _ideaUseCases.addIdea(currentAreaID!, _titleController.text,
                         _descriptionController.text);
 
+                    getLogger().d(
+                        "ideas after creation: ${await _ideaUseCases.countIdeas()}");
+
                     setState(() {
                       Navigator.of(context).pop();
-                      callback();
                     });
                   },
                   child: Text(
