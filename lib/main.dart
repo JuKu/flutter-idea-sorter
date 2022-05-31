@@ -8,10 +8,14 @@ import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
 import 'package:flutter_idea_sorter/presentation/home_page.dart';
 import 'package:get_it/get_it.dart';
 import 'injection.dart' as di;
+import 'package:logger/logger.dart';
 
 void main() async {
   // create flutter widgets not until di was initialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// initialize logger library
+  Logger.level = Level.debug;
 
   // initialize dependency injection
   await di.init();

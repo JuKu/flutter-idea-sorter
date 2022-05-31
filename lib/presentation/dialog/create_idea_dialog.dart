@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_idea_sorter/application/area_selection/area_selection_bloc.dart';
+import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
+import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
+import 'package:get_it/get_it.dart';
 
 class CreateIdeaDialog extends StatefulWidget {
   const CreateIdeaDialog({Key? key}) : super(key: key);
@@ -11,6 +15,13 @@ class CreateIdeaDialog extends StatefulWidget {
 class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  late IdeaUseCases _ideaUseCases;
+  late AreaUseCases _areaUseCases;
+
+  _CreateIdeaDialogState() {
+    _ideaUseCases = GetIt.instance.get<IdeaUseCases>();
+    _areaUseCases = GetIt.instance.get<AreaUseCases>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +108,15 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    /// create new idea
+                    setState(() async {
+                      final currentAreaID =
+                          await _areaUseCases.getSelectedAreaID();
+                      _ideaUseCases.addIdea(currentAreaID!,
+                          _titleController.text, _descriptionController.text);
+
+                      Navigator.of(context).pop();
+                    });
                   },
                   child: Text(
                       AppLocalizations.of(context)!.create_idea_save_button)),
