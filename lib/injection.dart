@@ -1,6 +1,7 @@
 import 'package:flutter_idea_sorter/application/area_selection/area_selection_bloc.dart';
 import 'package:flutter_idea_sorter/application/datastate/data_state_bloc.dart';
 import 'package:flutter_idea_sorter/domain/repositories/area_repository.dart';
+import 'package:flutter_idea_sorter/domain/repositories/idea_repository.dart';
 import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/area_dao.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
@@ -19,6 +20,9 @@ Future<void> init() async {
   sl.registerSingletonWithDependencies<AreaDao>(() {
     return sl.get<AppDatabase>().areaDao;
   }, dependsOn: [AppDatabase]);
+  sl.registerSingletonWithDependencies<IdeaDao>(() {
+    return sl.get<AppDatabase>().ideaDao;
+  }, dependsOn: [AppDatabase]);
 
   /// BLOCS
 
@@ -28,9 +32,13 @@ Future<void> init() async {
   sl.registerSingletonWithDependencies<AreaRepository>(() => AreaRepository(),
       dependsOn: [AppDatabase, AreaDao]);
 
+  sl.registerSingletonWithDependencies<IdeaRepository>(() => IdeaRepository(),
+      dependsOn: [AppDatabase, IdeaDao]);
+
   /// Usecases
   // sl.registerLazySingleton(() => null);
-  sl.registerLazySingleton<IdeaUseCases>(() => IdeaUseCases(ideaDao: sl()));
+  sl.registerLazySingleton<IdeaUseCases>(
+      () => IdeaUseCases(ideaDao: sl(), ideaRepository: sl()));
   sl.registerSingletonWithDependencies<AreaUseCases>(
       () => AreaUseCases(areaRepository: sl<AreaRepository>()),
       dependsOn: [AreaRepository]);
@@ -45,9 +53,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => database.areaDao);*/
 
   /// Register all DAOs.
-  sl.registerSingletonWithDependencies<IdeaDao>(() {
-    return sl.get<AppDatabase>().ideaDao;
-  }, dependsOn: [AppDatabase]);
 
   /// extern
   sl.registerLazySingleton(() => http.Client());

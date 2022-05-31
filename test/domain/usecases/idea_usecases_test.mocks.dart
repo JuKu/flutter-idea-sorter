@@ -4,6 +4,8 @@
 
 import 'dart:async' as _i3;
 
+import 'package:flutter_idea_sorter/domain/repositories/idea_repository.dart'
+    as _i5;
 import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart'
     as _i4;
 import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart'
@@ -34,6 +36,11 @@ class MockIdeaDao extends _i1.Mock implements _i2.IdeaDao {
               returnValue: Future<List<_i4.Idea>>.value(<_i4.Idea>[]))
           as _i3.Future<List<_i4.Idea>>);
   @override
+  _i3.Future<List<_i4.Idea>> findAllIdeasByArea(int? areaID) =>
+      (super.noSuchMethod(Invocation.method(#findAllIdeasByArea, [areaID]),
+              returnValue: Future<List<_i4.Idea>>.value(<_i4.Idea>[]))
+          as _i3.Future<List<_i4.Idea>>);
+  @override
   _i3.Stream<_i4.Idea?> findIdeaById(int? id) =>
       (super.noSuchMethod(Invocation.method(#findIdeaById, [id]),
           returnValue: Stream<_i4.Idea?>.empty()) as _i3.Stream<_i4.Idea?>);
@@ -55,4 +62,42 @@ class MockIdeaDao extends _i1.Mock implements _i2.IdeaDao {
   _i3.Future<int?> countAll() =>
       (super.noSuchMethod(Invocation.method(#countAll, []),
           returnValue: Future<int?>.value()) as _i3.Future<int?>);
+}
+
+/// A class which mocks [IdeaRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockIdeaRepository extends _i1.Mock implements _i5.IdeaRepository {
+  MockIdeaRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<List<_i4.Idea>> findAllIdeas() =>
+      (super.noSuchMethod(Invocation.method(#findAllIdeas, []),
+              returnValue: Future<List<_i4.Idea>>.value(<_i4.Idea>[]))
+          as _i3.Future<List<_i4.Idea>>);
+  @override
+  _i3.Future<List<_i4.Idea>> findAllIdeasByArea(int? areaID) =>
+      (super.noSuchMethod(Invocation.method(#findAllIdeasByArea, [areaID]),
+              returnValue: Future<List<_i4.Idea>>.value(<_i4.Idea>[]))
+          as _i3.Future<List<_i4.Idea>>);
+  @override
+  _i3.Stream<_i4.Idea?> findIdeaById(int? id) =>
+      (super.noSuchMethod(Invocation.method(#findIdeaById, [id]),
+          returnValue: Stream<_i4.Idea?>.empty()) as _i3.Stream<_i4.Idea?>);
+  @override
+  _i3.Future<void> insertIdea(_i4.Idea? Idea) =>
+      (super.noSuchMethod(Invocation.method(#insertIdea, [Idea]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> delete(int? id) =>
+      (super.noSuchMethod(Invocation.method(#delete, [id]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<int> countAll() =>
+      (super.noSuchMethod(Invocation.method(#countAll, []),
+          returnValue: Future<int>.value(0)) as _i3.Future<int>);
 }

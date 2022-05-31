@@ -1,3 +1,4 @@
+import 'package:flutter_idea_sorter/domain/repositories/idea_repository.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,14 +7,17 @@ import 'package:mockito/mockito.dart';
 
 import 'idea_usecases_test.mocks.dart';
 
-@GenerateMocks([IdeaDao])
+@GenerateMocks([IdeaDao, IdeaRepository])
 void main() {
   late IdeaUseCases ideaUseCases;
   late MockIdeaDao mockIdeaDao;
+  late MockIdeaRepository mockIdeaRepository;
 
   setUp(() {
     mockIdeaDao = MockIdeaDao();
-    ideaUseCases = IdeaUseCases(ideaDao: mockIdeaDao);
+    mockIdeaRepository = MockIdeaRepository();
+    ideaUseCases =
+        IdeaUseCases(ideaDao: mockIdeaDao, ideaRepository: mockIdeaRepository);
   });
 
   group("countIdeas", () {

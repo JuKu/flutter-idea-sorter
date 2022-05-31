@@ -140,6 +140,17 @@ class _$IdeaDao extends IdeaDao {
   }
 
   @override
+  Future<List<Idea>> findAllIdeasByArea(int areaID) async {
+    return _queryAdapter.queryList('SELECT * FROM ideas WHERE area_id = ?1',
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int),
+        arguments: [areaID]);
+  }
+
+  @override
   Stream<Idea?> findIdeaById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM ideas WHERE id = ?1',
         mapper: (Map<String, Object?> row) => Idea(

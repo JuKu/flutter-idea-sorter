@@ -6,10 +6,11 @@ import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
 import 'package:get_it/get_it.dart';
 
 class CreateIdeaDialog extends StatefulWidget {
-  const CreateIdeaDialog({Key? key}) : super(key: key);
+  final Function callback;
+  const CreateIdeaDialog({Key? key, required this.callback}) : super(key: key);
 
   @override
-  State<CreateIdeaDialog> createState() => _CreateIdeaDialogState();
+  State<CreateIdeaDialog> createState() => _CreateIdeaDialogState(callback);
 }
 
 class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
@@ -18,7 +19,9 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
   late IdeaUseCases _ideaUseCases;
   late AreaUseCases _areaUseCases;
 
-  _CreateIdeaDialogState() {
+  final Function callback;
+
+  _CreateIdeaDialogState(this.callback) {
     _ideaUseCases = GetIt.instance.get<IdeaUseCases>();
     _areaUseCases = GetIt.instance.get<AreaUseCases>();
   }
@@ -116,6 +119,7 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
 
                     setState(() {
                       Navigator.of(context).pop();
+                      callback();
                     });
                   },
                   child: Text(

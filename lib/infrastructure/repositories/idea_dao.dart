@@ -6,6 +6,9 @@ abstract class IdeaDao {
   @Query('SELECT * FROM ideas')
   Future<List<Idea>> findAllIdeas();
 
+  @Query('SELECT * FROM ideas WHERE area_id = :areaID')
+  Future<List<Idea>> findAllIdeasByArea(int areaID);
+
   @Query('SELECT * FROM ideas WHERE id = :id')
   Stream<Idea?> findIdeaById(int id);
 
