@@ -107,14 +107,14 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
                 height: 20,
               ),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     /// create new idea
-                    setState(() async {
-                      final currentAreaID =
-                          await _areaUseCases.getSelectedAreaID();
-                      _ideaUseCases.addIdea(currentAreaID!,
-                          _titleController.text, _descriptionController.text);
+                    final currentAreaID =
+                        await _areaUseCases.getSelectedAreaID();
+                    _ideaUseCases.addIdea(currentAreaID!, _titleController.text,
+                        _descriptionController.text);
 
+                    setState(() {
                       Navigator.of(context).pop();
                     });
                   },
