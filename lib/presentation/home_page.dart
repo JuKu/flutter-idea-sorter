@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                               },
                               child: ListTile(
                                 title: Text(
-                                  "My test title ${ideaOverview.ideaID}",
+                                  "#${ideaOverview.ideaID} ${ideaOverview.title}",
                                   style: const TextStyle(color: Colors.blue),
                                 ),
                               ), /* Container(

@@ -30,9 +30,19 @@ class IdeaRepository {
     return _ideaDao.findIdeaById(id);
   }
 
-  Future<void> insertIdea(Idea idea) {
-    getLogger().d("insert idea: ${idea.toString()}");
-    return _ideaDao.insertIdea(idea);
+  Future<void> insertIdea(Idea idea) async {
+    if (idea.areaId < 1) {
+      throw Exception("idea areaID cannot be < 1");
+    }
+
+    // get latest id
+    final Idea? lastIdea = await _ideaDao.getNewestGlobalIdea();
+    final int lastID = lastIdea == null ? 0 : lastIdea.id;
+    final Idea ideaCopy =
+        Idea(lastID + 1, idea.title, idea.description, idea.areaId);
+
+    /// getLogger().d("insert idea: ${idea.toString()}");
+    return await _ideaDao.insertIdea(ideaCopy);
   }
 
   Future<void> delete(int id) {

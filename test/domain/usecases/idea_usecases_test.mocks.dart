@@ -59,6 +59,10 @@ class MockIdeaDao extends _i1.Mock implements _i2.IdeaDao {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
+  _i3.Future<_i4.Idea?> getNewestGlobalIdea() =>
+      (super.noSuchMethod(Invocation.method(#getNewestGlobalIdea, []),
+          returnValue: Future<_i4.Idea?>.value()) as _i3.Future<_i4.Idea?>);
+  @override
   _i3.Future<int?> countAll() =>
       (super.noSuchMethod(Invocation.method(#countAll, []),
           returnValue: Future<int?>.value()) as _i3.Future<int?>);

@@ -21,6 +21,9 @@ abstract class IdeaDao {
   @Query('DELETE FROM ideas WHERE id = :id')
   Future<void> delete(int id);
 
+  @Query('Select * from ideas order by id desc limit 1')
+  Future<Idea?> getNewestGlobalIdea();
+
   @Query('SELECT COUNT(*) FROM ideas')
   Future<int?> countAll();
 }

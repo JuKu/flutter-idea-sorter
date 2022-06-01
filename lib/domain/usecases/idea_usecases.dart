@@ -19,17 +19,6 @@ class IdeaUseCases {
     logger.i(
         "try to create new idea, title: $title, description: $description, areaID: $areaId");
 
-    // TODO: replace direct database access with repository calls
-
-    // first, check if idea title already exists
-    if ((await (ideaDao.findIdeaByTitle(title).length)) > 0) {
-      logger.w(
-          "cannot create idea, because idea with this title already exists: $title");
-
-      /// idea title already exists
-      return false;
-    }
-
     try {
       late Idea idea = Idea(areaId, title, description, areaId);
       await ideaRepository.insertIdea(idea);

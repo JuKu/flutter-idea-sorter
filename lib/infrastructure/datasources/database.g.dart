@@ -183,6 +183,16 @@ class _$IdeaDao extends IdeaDao {
   }
 
   @override
+  Future<Idea?> getNewestGlobalIdea() async {
+    return _queryAdapter.query('Select * from ideas order by id desc limit 1',
+        mapper: (Map<String, Object?> row) => Idea(
+            row['id'] as int,
+            row['title'] as String,
+            row['description'] as String,
+            row['area_id'] as int));
+  }
+
+  @override
   Future<int?> countAll() async {
     await _queryAdapter.queryNoReturn('SELECT COUNT(*) FROM ideas');
   }
