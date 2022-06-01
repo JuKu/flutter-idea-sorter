@@ -14,8 +14,8 @@ final sl = GetIt.I; // sl = service locator
 
 Future<void> init() async {
   // Register our database first.
-  sl.registerLazySingletonAsync<AppDatabase>(() async =>
-      $FloorAppDatabase.databaseBuilder('ideamanagement.db').build());
+  sl.registerLazySingletonAsync<AppDatabase>(
+      () => $FloorAppDatabase.databaseBuilder('ideamanagement.db').build());
 
   sl.registerSingletonWithDependencies<AreaDao>(() {
     return sl.get<AppDatabase>().areaDao;

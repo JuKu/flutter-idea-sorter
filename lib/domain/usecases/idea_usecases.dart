@@ -30,11 +30,15 @@ class IdeaUseCases {
       return false;
     }
 
-    late Idea idea = Idea(areaId, title, description, areaId);
-    ideaDao.insertIdea(idea);
+    try {
+      late Idea idea = Idea(areaId, title, description, areaId);
+      await ideaRepository.insertIdea(idea);
+    } catch (e, s) {
+      logger.w("cannot create idea: $e");
+    }
 
     logger.i(
-        "created idea successfully (title: $title, description: $description, areaID: $areaId");
+        "created idea successfully (title: $title, description: $description, areaID: $areaId, idea count after creation: ${await ideaRepository.countAll()}");
 
     return true;
   }

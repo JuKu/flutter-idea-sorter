@@ -1,5 +1,6 @@
 import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
 import 'package:flutter_idea_sorter/infrastructure/repositories/idea_dao.dart';
+import 'package:flutter_idea_sorter/logger.util.dart';
 import 'package:get_it/get_it.dart';
 
 class IdeaRepository {
@@ -11,6 +12,10 @@ class IdeaRepository {
           "IdeaDAO is not ready - this means database was not initialized correctly");
     }
     _ideaDao = GetIt.instance.get<IdeaDao>();
+
+    if (_ideaDao == null) {
+      getLogger().e("_ideaDao is null");
+    }
   }
 
   Future<List<Idea>> findAllIdeas() {
@@ -25,8 +30,9 @@ class IdeaRepository {
     return _ideaDao.findIdeaById(id);
   }
 
-  Future<void> insertIdea(Idea Idea) {
-    return _ideaDao.insertIdea(Idea);
+  Future<void> insertIdea(Idea idea) {
+    getLogger().d("insert idea: ${idea.toString()}");
+    return _ideaDao.insertIdea(idea);
   }
 
   Future<void> delete(int id) {

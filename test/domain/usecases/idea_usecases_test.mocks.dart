@@ -87,8 +87,8 @@ class MockIdeaRepository extends _i1.Mock implements _i5.IdeaRepository {
       (super.noSuchMethod(Invocation.method(#findIdeaById, [id]),
           returnValue: Stream<_i4.Idea?>.empty()) as _i3.Stream<_i4.Idea?>);
   @override
-  _i3.Future<void> insertIdea(_i4.Idea? Idea) =>
-      (super.noSuchMethod(Invocation.method(#insertIdea, [Idea]),
+  _i3.Future<void> insertIdea(_i4.Idea? idea) =>
+      (super.noSuchMethod(Invocation.method(#insertIdea, [idea]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override

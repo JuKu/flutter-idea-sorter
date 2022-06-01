@@ -24,6 +24,7 @@ void main() {
     test("should return the correct number of saved ideas", () async {
       // arrange - Umgebung schaffen, dass Test so läuft, wie er läuft
       when(mockIdeaDao.countAll()).thenAnswer((_) async => 0);
+      when(mockIdeaRepository.countAll()).thenAnswer((_) async => 0);
 
       // act - Test ausführen
       final result = await ideaUseCases.countIdeas();
@@ -33,11 +34,12 @@ void main() {
 
       // second check
       when(mockIdeaDao.countAll()).thenAnswer((_) async => 1);
+      when(mockIdeaRepository.countAll()).thenAnswer((_) async => 1);
       final resul1 = await ideaUseCases.countIdeas();
       expect(resul1, 1);
 
       // last, check if the correct method was called
-      verify(mockIdeaDao.countAll());
+      verify(mockIdeaRepository.countAll());
 
       // verify, that mock is not used anymore.
       // See also: https://www.udemy.com/course/dart-flutter-leicht-gemacht/learn/lecture/28467990#search
@@ -55,13 +57,21 @@ void main() {
       // this variable simulates the idea database
       late int ideaCount = 0;
 
+      verifyNever(mockIdeaDao.countAll());
+
       // arrange
       when(mockIdeaDao.findIdeaByTitle(any))
           .thenAnswer((realInvocation) => const Stream.empty());
       when(mockIdeaDao.insertIdea(any)).thenAnswer((realInvocation) async {
         ideaCount++;
       });
+      when(mockIdeaRepository.insertIdea(any))
+          .thenAnswer((realInvocation) async {
+        mockIdeaDao.insertIdea(realInvocation.namedArguments[0]);
+        //ideaCount++;
+      });
       when(mockIdeaDao.countAll()).thenAnswer((_) async => ideaCount);
+      when(mockIdeaRepository.countAll()).thenAnswer((_) async => ideaCount);
 
       // act
       final count1 = await ideaUseCases.countIdeas();
@@ -69,6 +79,8 @@ void main() {
       final count2 = await ideaUseCases.countIdeas();
 
       // verify
+      verify(mockIdeaRepository.insertIdea(any));
+      verify(mockIdeaDao.insertIdea(any));
       expect(result, true);
       expect(count1, 0);
       expect(count2, 1);

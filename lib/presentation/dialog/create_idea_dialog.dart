@@ -112,8 +112,8 @@ class _CreateIdeaDialogState extends State<CreateIdeaDialog> {
                     /// create new idea
                     final currentAreaID =
                         await _areaUseCases.getSelectedAreaID();
-                    _ideaUseCases.addIdea(currentAreaID!, _titleController.text,
-                        _descriptionController.text);
+                    await _ideaUseCases.addIdea(currentAreaID!,
+                        _titleController.text, _descriptionController.text);
 
                     getLogger().d(
                         "ideas after creation: ${await _ideaUseCases.countIdeas()}");
