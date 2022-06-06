@@ -7,6 +7,7 @@ import 'package:flutter_idea_sorter/domain/models/idea_overview_model.dart';
 import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
 import 'package:flutter_idea_sorter/logger.util.dart';
+import 'package:flutter_idea_sorter/presentation/details/idea_details_view.dart';
 import 'package:flutter_idea_sorter/presentation/dialog/choose_area_dialog.dart';
 import 'package:flutter_idea_sorter/presentation/dialog/create_idea_dialog.dart';
 import 'package:responsive_grid/responsive_grid.dart';
@@ -86,6 +87,13 @@ class _HomePageState extends State<HomePage> {
                               splashColor: Colors.blue.withAlpha(30),
                               onTap: () {
                                 debugPrint('Card tapped.');
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => IdeaDetailsPage(
+                                            ideaID: ideaOverview.ideaID,
+                                            ideaOverview: ideaOverview)));
                               },
                               child: ListTile(
                                 title: Text(

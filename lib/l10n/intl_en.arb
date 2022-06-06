@@ -26,5 +26,9 @@
   "select_area_button": "Select",
   "@select_area_button": {
     "description": "This button title for the select area dialog'"
+  },
+  "idea_details_title": "Idea Details",
+  "@iddescriptionea_details_title": {
+    "": "The title of the idea details page"
   }
 }
