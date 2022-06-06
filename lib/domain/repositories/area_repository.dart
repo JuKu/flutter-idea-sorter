@@ -6,7 +6,12 @@ import 'package:get_it/get_it.dart';
 class AreaRepository {
   late AreaDao _areaDao;
 
-  AreaRepository() {
+  AreaRepository({AreaDao? areaDao}) {
+    if (areaDao != null) {
+      _areaDao = areaDao;
+      return;
+    }
+
     if (!GetIt.instance.isReadySync<AreaDao>()) {
       throw Exception(
           "AreaDAO is not ready - this means database was not initialized correctly");
