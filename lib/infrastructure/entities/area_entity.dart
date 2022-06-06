@@ -1,5 +1,14 @@
 import 'package:floor/floor.dart';
 
+enum SyncMode {
+  /// This mode is enable
+  googleDrive,
+
+  cloud,
+
+  none
+}
+
 @Entity(tableName: 'areas')
 class Area {
   @PrimaryKey(autoGenerate: true)
@@ -7,5 +16,9 @@ class Area {
 
   final String title;
 
-  Area(this.id, this.title);
+  final bool syncEnabled;
+
+  final SyncMode syncMode;
+
+  Area(this.id, this.title, this.syncEnabled, this.syncMode);
 }

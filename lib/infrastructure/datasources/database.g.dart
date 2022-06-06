@@ -86,7 +86,7 @@ class _$AppDatabase extends AppDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `ideas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `area_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `areas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `areas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `syncEnabled` INTEGER NOT NULL, `syncMode` INTEGER NOT NULL)');
         await database.execute(
             'CREATE INDEX `index_ideas_area_id` ON `ideas` (`area_id`)');
 
@@ -209,8 +209,12 @@ class _$AreaDao extends AreaDao {
         _areaInsertionAdapter = InsertionAdapter(
             database,
             'areas',
-            (Area item) =>
-                <String, Object?>{'id': item.id, 'title': item.title},
+            (Area item) => <String, Object?>{
+                  'id': item.id,
+                  'title': item.title,
+                  'syncEnabled': item.syncEnabled ? 1 : 0,
+                  'syncMode': _syncModeConverter.encode(item.syncMode)
+                },
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -224,15 +228,21 @@ class _$AreaDao extends AreaDao {
   @override
   Future<List<Area>> findAllAreas() async {
     return _queryAdapter.queryList('SELECT * FROM areas',
-        mapper: (Map<String, Object?> row) =>
-            Area(row['id'] as int, row['title'] as String));
+        mapper: (Map<String, Object?> row) => Area(
+            row['id'] as int,
+            row['title'] as String,
+            (row['syncEnabled'] as int) != 0,
+            _syncModeConverter.decode(row['syncMode'] as int)));
   }
 
   @override
   Stream<Area?> findAreaById(int id) {
     return _queryAdapter.queryStream('SELECT * FROM areas WHERE id = ?1',
-        mapper: (Map<String, Object?> row) =>
-            Area(row['id'] as int, row['title'] as String),
+        mapper: (Map<String, Object?> row) => Area(
+            row['id'] as int,
+            row['title'] as String,
+            (row['syncEnabled'] as int) != 0,
+            _syncModeConverter.decode(row['syncMode'] as int)),
         arguments: [id],
         queryableName: 'areas',
         isView: false);
@@ -254,3 +264,6 @@ class _$AreaDao extends AreaDao {
     await _areaInsertionAdapter.insert(area, OnConflictStrategy.abort);
   }
 }
+
+// ignore_for_file: unused_element
+final _syncModeConverter = SyncModeConverter();

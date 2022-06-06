@@ -18,7 +18,7 @@ class AreaUseCases {
   Future<void> createDefaultAreaIfAbsent() async {
     if (!(await hasAreas())) {
       /// no area exists, so create the default area
-      final Area defaultArea = Area(1, "default");
+      final Area defaultArea = Area(1, "default", false, SyncMode.none);
       areaRepository.insertArea(defaultArea);
     }
   }
