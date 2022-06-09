@@ -10,6 +10,7 @@ import 'package:flutter_idea_sorter/logger.util.dart';
 import 'package:flutter_idea_sorter/presentation/details/idea_details_view.dart';
 import 'package:flutter_idea_sorter/presentation/dialog/choose_area_dialog.dart';
 import 'package:flutter_idea_sorter/presentation/dialog/create_idea_dialog.dart';
+import 'package:flutter_idea_sorter/presentation/shared/icon_mapper.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import '../injection.dart' as di;
 
@@ -96,7 +97,8 @@ class _HomePageState extends State<HomePage> {
                                             ideaOverview: ideaOverview)));
                               },
                               child: ListTile(
-                                leading: const Icon(Icons.add),
+                                leading: Icon(
+                                    IconMapper.getIcon(ideaOverview.iconName)),
                                 title: Text(
                                   "#${ideaOverview.ideaID} ${ideaOverview.title}",
                                   style: const TextStyle(color: Colors.blue),
