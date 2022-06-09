@@ -4,14 +4,14 @@ class IconMapper {
   static final Map<String, IconData> _iconList = {
     Icons.add.toString(): Icons.add,
     Icons.question_mark.toString(): Icons.question_mark
+
+    /// TODO: add other icons
   };
 
   /// private constructor
   IconMapper._();
 
   static IconData getIcon(String iconName) {
-    /// TODO: add other icons
-
     if (_iconList.containsKey(iconName)) {
       return _iconList[iconName]!;
     }
