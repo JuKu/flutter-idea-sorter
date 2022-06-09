@@ -38,8 +38,8 @@ class IdeaRepository {
     // get latest id
     final Idea? lastIdea = await _ideaDao.getNewestGlobalIdea();
     final int lastID = lastIdea == null ? 0 : lastIdea.id;
-    final Idea ideaCopy =
-        Idea(lastID + 1, idea.title, idea.description, idea.areaId);
+    final Idea ideaCopy = Idea(
+        lastID + 1, idea.title, idea.description, idea.iconName, idea.areaId);
 
     /// getLogger().d("insert idea: ${idea.toString()}");
     return await _ideaDao.insertIdea(ideaCopy);

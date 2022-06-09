@@ -26,5 +26,7 @@ class Idea {
   final String description;
   //final double grade;
 
-  Idea(this.id, this.title, this.description, this.areaId);
+  final String iconName;
+
+  Idea(this.id, this.title, this.description, this.iconName, this.areaId);
 }

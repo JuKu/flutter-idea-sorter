@@ -96,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                                             ideaOverview: ideaOverview)));
                               },
                               child: ListTile(
+                                leading: const Icon(Icons.add),
                                 title: Text(
                                   "#${ideaOverview.ideaID} ${ideaOverview.title}",
                                   style: const TextStyle(color: Colors.blue),

@@ -84,7 +84,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `ideas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `area_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
+            'CREATE TABLE IF NOT EXISTS `ideas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `area_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `iconName` TEXT NOT NULL, FOREIGN KEY (`area_id`) REFERENCES `areas` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `areas` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `syncEnabled` INTEGER NOT NULL, `syncMode` INTEGER NOT NULL)');
         await database.execute(
@@ -117,7 +117,8 @@ class _$IdeaDao extends IdeaDao {
                   'id': item.id,
                   'area_id': item.areaId,
                   'title': item.title,
-                  'description': item.description
+                  'description': item.description,
+                  'iconName': item.iconName
                 },
             changeListener);
 
@@ -136,6 +137,7 @@ class _$IdeaDao extends IdeaDao {
             row['id'] as int,
             row['title'] as String,
             row['description'] as String,
+            row['iconName'] as String,
             row['area_id'] as int));
   }
 
@@ -146,6 +148,7 @@ class _$IdeaDao extends IdeaDao {
             row['id'] as int,
             row['title'] as String,
             row['description'] as String,
+            row['iconName'] as String,
             row['area_id'] as int),
         arguments: [areaID]);
   }
@@ -157,6 +160,7 @@ class _$IdeaDao extends IdeaDao {
             row['id'] as int,
             row['title'] as String,
             row['description'] as String,
+            row['iconName'] as String,
             row['area_id'] as int),
         arguments: [id],
         queryableName: 'ideas',
@@ -170,6 +174,7 @@ class _$IdeaDao extends IdeaDao {
             row['id'] as int,
             row['title'] as String,
             row['description'] as String,
+            row['iconName'] as String,
             row['area_id'] as int),
         arguments: [title],
         queryableName: 'ideas',
@@ -189,6 +194,7 @@ class _$IdeaDao extends IdeaDao {
             row['id'] as int,
             row['title'] as String,
             row['description'] as String,
+            row['iconName'] as String,
             row['area_id'] as int));
   }
 

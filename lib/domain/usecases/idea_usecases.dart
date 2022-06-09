@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_idea_sorter/domain/models/idea_overview_model.dart';
 import 'package:flutter_idea_sorter/domain/repositories/idea_repository.dart';
 import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
@@ -20,7 +21,8 @@ class IdeaUseCases {
         "try to create new idea, title: $title, description: $description, areaID: $areaId");
 
     try {
-      late Idea idea = Idea(areaId, title, description, areaId);
+      late Idea idea = Idea(
+          areaId, title, description, Icons.filter_none.toString(), areaId);
       await ideaRepository.insertIdea(idea);
     } catch (e, s) {
       logger.w("cannot create idea: $e");
@@ -43,7 +45,8 @@ class IdeaUseCases {
             areaID: idea.areaId,
             ideaID: idea.id,
             title: idea.title,
-            description: idea.description))
+            description: idea.description,
+            iconName: idea.iconName))
         .toList();
   }
 }
