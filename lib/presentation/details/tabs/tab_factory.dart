@@ -18,11 +18,11 @@ class TabFactory {
 
   static List<TabItem> buildTabItems(BuildContext context) {
     return [
-      TabItem(icon: Icons.home, title: 'Home'),
-      TabItem(icon: Icons.map, title: 'Discovery'),
-      TabItem(icon: Icons.add, title: 'Add'),
-      TabItem(icon: Icons.message, title: 'Message'),
-      TabItem(icon: Icons.people, title: 'Profile'),
+      const TabItem(icon: Icons.home, title: 'Home'),
+      const TabItem(icon: Icons.description, title: 'Details'),
+      const TabItem(icon: Icons.analytics, title: 'Analytics'),
+      const TabItem(icon: Icons.broken_image, title: 'Risks'),
+      const TabItem(icon: Icons.attach_money, title: 'Finance'),
     ];
   }
 
