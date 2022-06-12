@@ -5,16 +5,13 @@ import 'package:flutter_idea_sorter/presentation/details/tabs/tab_info.dart';
 
 typedef TabClickCallback = void Function(int index);
 
+/// see also: https://pub.dev/packages/convex_bottom_bar
+
 class TabFactory {
   Map<TabInfo, Widget> tabs = {};
 
   /// private constructor, so noone can create an instance of this class
   TabFactory._();
-
-  /// generates all available tabs, which should be shown
-  static Map<TabInfo, Widget> buildTabs(BuildContext context) {
-    return {};
-  }
 
   static List<TabItem> buildTabItems(BuildContext context) {
     return [

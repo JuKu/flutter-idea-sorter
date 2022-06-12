@@ -26,9 +26,6 @@ class _IdeaDetailsPageState extends State<IdeaDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    /// generate all available tabs
-    final Map<TabInfo, Widget> tabs = TabFactory.buildTabs(context);
-
     return FutureBuilder<Idea?>(
       future: fetchData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
