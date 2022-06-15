@@ -1,27 +1,28 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_idea_sorter/application/savestate/save_state_bloc.dart';
 import 'package:flutter_idea_sorter/domain/models/idea_overview_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
 
 import 'package:flutter_idea_sorter/presentation/details/tabs/tab_factory.dart';
-import 'package:flutter_idea_sorter/presentation/details/tabs/tab_info.dart';
+import 'package:get_it_mixin/get_it_mixin.dart';
+import '../../injection.dart' as di;
 
-class IdeaDetailsPage extends StatefulWidget {
+class IdeaDetailsPage extends StatefulWidget with GetItStatefulWidgetMixin {
   /// the ID of the idea which is shown in this detail widget page
   final int ideaID;
   final IdeaOverviewModel ideaOverview;
 
-  const IdeaDetailsPage(
-      {Key? key, required this.ideaID, required this.ideaOverview})
+  IdeaDetailsPage({Key? key, required this.ideaID, required this.ideaOverview})
       : super(key: key);
 
   @override
   State<IdeaDetailsPage> createState() => _IdeaDetailsPageState();
 }
 
-class _IdeaDetailsPageState extends State<IdeaDetailsPage> {
+class _IdeaDetailsPageState extends State<IdeaDetailsPage>
+    with GetItStateMixin {
   int _currentIndex = 0;
 
   @override
@@ -44,11 +45,28 @@ class _IdeaDetailsPageState extends State<IdeaDetailsPage> {
                 IconButton(
                     onPressed: () {
                       debugPrint("click save idea");
+
+                      // TODO: save idea
+
+                      setState(() {
+                        di.sl.get<SaveStateBloc>().add(SaveEvent());
+                      });
                     },
-                    icon: const Icon(
-                      Icons.save,
-                      color: Colors.lightGreenAccent,
-                    )),
+                    icon: BlocBuilder<SaveStateBloc, SaveStateState>(
+                        bloc: get<SaveStateBloc>(),
+                        builder: (context, state) {
+                          if (state is UnsavedChangesState) {
+                            return const Icon(
+                              Icons.save,
+                              color: Colors.lightGreenAccent,
+                            );
+                          } else {
+                            return const Icon(
+                              Icons.save,
+                              color: Colors.grey,
+                            );
+                          }
+                        })),
               ],
             ),
             bottomNavigationBar:

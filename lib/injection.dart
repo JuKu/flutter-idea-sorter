@@ -1,5 +1,6 @@
 import 'package:flutter_idea_sorter/application/area_selection/area_selection_bloc.dart';
 import 'package:flutter_idea_sorter/application/datastate/data_state_bloc.dart';
+import 'package:flutter_idea_sorter/application/savestate/save_state_bloc.dart';
 import 'package:flutter_idea_sorter/domain/repositories/area_repository.dart';
 import 'package:flutter_idea_sorter/domain/repositories/idea_repository.dart';
 import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
@@ -25,6 +26,7 @@ Future<void> init() async {
   }, dependsOn: [AppDatabase]);
 
   /// BLOCS
+  sl.registerSingleton<SaveStateBloc>(SaveStateBloc());
 
   // factory means, that every call sl creates a new instance of the dependency
   //sl.registerFactory(() => null)

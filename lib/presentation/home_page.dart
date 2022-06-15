@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 // import 'package:flutter_idea_sorter/generated/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_idea_sorter/application/savestate/save_state_bloc.dart';
 import 'package:flutter_idea_sorter/domain/models/idea_overview_model.dart';
 import 'package:flutter_idea_sorter/domain/usecases/area_usecases.dart';
 import 'package:flutter_idea_sorter/domain/usecases/idea_usecases.dart';
@@ -88,6 +89,9 @@ class _HomePageState extends State<HomePage> {
                               splashColor: Colors.blue.withAlpha(30),
                               onTap: () {
                                 debugPrint('Card tapped.');
+
+                                /// change save state
+                                di.sl.get<SaveStateBloc>().add(SaveEvent());
 
                                 Navigator.push(
                                     context,

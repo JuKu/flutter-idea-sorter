@@ -9,8 +9,8 @@ part 'save_state_event.dart';
 
 part 'save_state_state.dart';
 
-class DataStateBloc extends Bloc<SaveStateEvent, SaveStateState> {
-  DataStateBloc() : super(SavedChangesState()) {
+class SaveStateBloc extends Bloc<SaveStateEvent, SaveStateState> {
+  SaveStateBloc() : super(SavedChangesState()) {
     on<UserChangeEvent>((event, emit) async {
       //return checkLoginState(event, emit);
 
