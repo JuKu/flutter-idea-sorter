@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_idea_sorter/infrastructure/entities/idea_entity.dart';
 
 import 'package:flutter_idea_sorter/presentation/details/tabs/tab_factory.dart';
+import 'package:flutter_idea_sorter/presentation/details/widget/idea_home_tab.dart';
+import 'package:flutter_idea_sorter/presentation/details/widget/wip_tab.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 import '../../injection.dart' as di;
 
@@ -72,20 +74,27 @@ class _IdeaDetailsPageState extends State<IdeaDetailsPage>
             bottomNavigationBar:
                 TabFactory.buildBottomNavigationBar(context, 0, (int index) {
               setState(() {
+                /// TODO: first save changes
+
                 _currentIndex = index;
               });
             }),
             body: IndexedStack(
               index: _currentIndex,
               children: [
-                Center(
+                IdeaHomeTabWidget(ideaOverviewModel: widget.ideaOverview),
+                const WIPTabWidget(),
+                const WIPTabWidget(),
+                const WIPTabWidget(),
+                const WIPTabWidget(),
+                /*Center(
                     child:
                         /*CircularProgressIndicator()*/
-                        Text("$_currentIndex")),
-                Center(
+                        Text("$_currentIndex")),*/
+                /*Center(
                     child:
                         /*CircularProgressIndicator()*/
-                        Text("$_currentIndex")),
+                        Text("$_currentIndex")),*/
                 //TODO: add pages here
               ],
             ),
