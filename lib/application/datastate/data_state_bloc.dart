@@ -14,9 +14,13 @@ class DataStateBloc extends Bloc<DataStateEvent, DataStateState> {
 
   DataStateBloc({required this.ideaUseCases}) : super(DataStateInitial()) {
     on<LoadAllDataOverviewEvent>((event, emit) async {
-      //return checkLoginState(event, emit);
+      final ideas = await ideaUseCases.listIdeaOverviewsByArea(event.areaID);
 
-      // TODO: add code here
+      if (ideas.isEmpty) {
+        emit.call(NoIdeasDataState());
+      } else {
+        emit.call(IdeaOverviewLoadedDataState(ideas));
+      }
     });
   }
 }

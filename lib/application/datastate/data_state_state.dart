@@ -30,6 +30,10 @@ class NoAreasDataState extends DataStateState with EquatableMixin {
 
 /// This state is current, if one or multiple ideas was loaded from database
 class IdeaOverviewLoadedDataState extends DataStateState with EquatableMixin {
+  final ideas;
+
+  IdeaOverviewLoadedDataState(this.ideas);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [ideas];
 }
