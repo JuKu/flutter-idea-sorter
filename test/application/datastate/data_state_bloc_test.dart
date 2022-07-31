@@ -39,6 +39,8 @@ void main() {
 
       const noIdeaState = TypeMatcher<NoIdeasDataState>();
 
+      /// https://pub.dev/packages/bloc_test
+
       /// expectLater(dataStateBloc.state, equals(NoIdeasDataState()));
       expectLater(dataStateBloc.stream, emitsInOrder([noIdeaState]));
     });
